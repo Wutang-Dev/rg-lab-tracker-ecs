@@ -12,8 +12,6 @@ I built the application locally using Flask and Redis to store lab counts, with 
 
 I then containerised the application using a multi-stage Dockerfile, running Gunicorn as the application server under a non-root user.
 
-The next stage is to deploy the application to AWS ECS Fargate using Amazon ECR, an Application Load Balancer, Route 53 and ACM for HTTPS.
+I  first built the AWS infrastructure manually using the AWS Console before recreating it with Terraform and automating deployments using GitHub Actions.
 
-I will first build the AWS infrastructure manually using the AWS Console before recreating it with Terraform and automating deployments using GitHub Actions.
-
-**Build documentation showing how I built the project:** [BUILD.md](BUILD.md) — documenting each stage from local development and Docker to deployment through the AWS Console.# rg-lab-tracker-ecs
+**Build documentation showing how I built the project:** [BUILD.md](build.md) — documenting each stage from local development and Docker to deployment through the AWS Console.
