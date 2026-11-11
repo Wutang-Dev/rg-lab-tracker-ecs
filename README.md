@@ -24,4 +24,4 @@ I used Redis and Gunicorn alongside my Flask application to support the deployme
 
 Both services run together within my ECS task.
 
-**Build documentation showing how I built the project:** [BUILD.md](build.md) — documenting each stage from local development and Docker to deployment through the AWS Console.
+**Build documentation showing how I built the project Locally on my machine and the AWS Console:** [build.md](build.md) — documenting  local development and Docker to deployment through the AWS Console.
