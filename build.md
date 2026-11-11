@@ -93,3 +93,29 @@ Application load balancer
 ![Healthy Target](images/26-healthy-target.png)
 
 ![Healthy Target 2](images/27-healthy-taget-2.png)
+
+## Request an SSL/TLS certificate
+
+![ACM Certificate](images/28-acm-cert.png)
+
+## Configure HTTPS on the Application Load Balancer
+
+HTTPS Listener
+
+![HTTPS Listener](images/29-https-listener.png)
+
+## Configure the HTTP redirect
+
+[HTTP Redirect](images/30-http-redirect.png)
+
+## Configure Route 53
+
+[A Record](images/31-A-record.png)
+
+terminal varification 
+
+[Terminal Verification](images/32-terminal-verify.png)
+
+## HTTPS Browser verification
+
+[HTTPS Browser verification](images/33-https-browser-verify.png)
