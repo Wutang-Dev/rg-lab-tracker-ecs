@@ -36,4 +36,60 @@ I built the App locally on my machine first
 
 verified in the AWS console 
 
-[Verify in AWS Console](images/13-verify-AWS-ECR-Push.png)
+![Verify in AWS Console](images/13-verify-AWS-ECR-Push.png)
+
+# AWS Console Build 
+
+## ECS Cluster Creation 
+
+![ECS Cluster Creation](images/14-ecs-cluster.png)
+
+## ECS Task Definitions 
+
+I created an ECS Fargate task definition (`ecs-rg-lab-tracker-task:1`) containing two containers: Flask/Gunicorn to serve the application on port 5000 and Redis to store lab counts on port 6379. I configured the environment variables, task execution role, and shared CPU and memory resources.
+
+![ECS Task Definitions](images/15-ecs-task-definitions.png)
+
+## VPC 
+
+![VPC](images/16-vpc.png)
+
+![VPC 2](images/17-vpc-2.png)
+
+## Security Groups 
+
+rg-lab-tracker-alb-sg - Allow HTTP and HTTPS traffic to ALB
+
+![rg-lab-tracker-alb-sg](images/18-rg-lab-tracker-alb-sg.png)
+
+rg-lab-tracker-ecs-sg - Allow ALB traffic to Flask application
+
+![rg-lab-tracker-ecs-sg](images/19-rg-lab-tracker-ecs-sg.png)
+
+## Aplication Load Balancer
+
+target group 
+
+![target group](images/20-target-group.png)
+
+Application load balancer 
+
+![ALB](images/21-alb.png)
+
+## ECS Fargate Service 
+
+![ECS Fargate Service](images/22-ecs-fargate-service.png)
+
+![Containers](images/23-containers.png)
+
+## Connect the ECS service to the target group
+
+![ECS Task 1](images/24-ECS-task-1.png)
+
+![ECS Task 1](images/25-ECS-task-2.png)
+
+## Verify the target is healthy
+
+![Healthy Target](images/26-healthy-target.png)
+
+![Healthy Target 2](images/27-healthy-taget-2.png)
