@@ -23,3 +23,17 @@ I built the App locally on my machine first
 ## Push App to Docker Hub
 
 ![Push App to Docker Hub](images/9-push-to-docker-hub.png)
+
+![Docker Hub Browser](images/10-docker-hub-browser.png)
+
+## Create ECR Container in AWS 
+
+![ECR Container AWS](images/11-ECR-Container.png)
+
+## Push App to ECR Container
+
+![Push APP to ECR Container](images/12-ECR-push.png)
+
+verified in the AWS console 
+
+[Verify in AWS Console](images/13-verify-AWS-ECR-Push.png)
