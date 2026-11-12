@@ -4,8 +4,8 @@ module "vpc" {
   project            = var.project
   managed_by         = var.managed_by
   nat_gateway_domain = var.nat_gateway_domain
-  app_domain_name     = module.route53.app_record_fqdn
-  alb_zone_id         = module.alb.alb_zone_id
+  app_domain_name    = module.route53.app_record_fqdn
+  alb_zone_id        = module.alb.alb_zone_id
 }
 module "security_groups" {
   source     = "./modules/security-groups"
@@ -38,4 +38,21 @@ module "route53" {
 resource "aws_acm_certificate_validation" "main" {
   certificate_arn         = module.acm.certificate_arn
   validation_record_fqdns = module.route53.acm_validation_record_fqdns
+}
+
+module "ecs" {
+  source                = "./modules/ecs"
+  project               = var.project
+  managed_by            = var.managed_by
+  private_subnet_ids    = module.vpc.private_subnet_ids
+  ecs_security_group_id = module.security_groups.ecs_security_group_id
+  target_group_arn      = module.alb.target_group_arn
+  execution_role_arn    = module.iam.ecs_task_execution_role_arn
+  app_image             = var.app_image
+  container_port        = var.container_port
+}
+module "iam" {
+  source     = "./modules/iam"
+  project    = var.project
+  managed_by = var.managed_by
 }

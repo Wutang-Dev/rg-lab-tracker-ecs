@@ -61,3 +61,28 @@ output "certificate_domain_name" {
   description = "Domain name associated with the ACM certificate"
   value       = module.acm.certificate_domain_name
 }
+output "ecs_cluster_name" {
+  description = "The name of the ECS cluster"
+  value       = module.ecs.ecs_cluster_name
+}
+output "ecs_task_execution_role_name" {
+  description = "Name of the ECS task execution role"
+  value       = module.iam.ecs_task_execution_role_name
+}
+
+output "ecs_task_execution_role_arn" {
+  description = "ARN of the ECS task execution role"
+  value       = module.iam.ecs_task_execution_role_arn
+}
+output "ecs_task_definition_arn" {
+  description = "ARN of the ECS task definition"
+  value       = module.ecs.task_definition_arn
+}
+output "ecs_task_definition_family" {
+  description = "Family name of the ECS task definition"
+  value       = module.ecs.task_definition_family
+}
+output "ecs_service_name" {
+  description = "Name of the ECS Fargate service"
+  value       = module.ecs.ecs_service_name
+}

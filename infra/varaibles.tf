@@ -40,3 +40,13 @@ variable "app_domain_name" {
   type        = string
   default     = "ecs-rg-lab-tracker.rginfralabs.co.uk"
 }
+variable "app_image" {
+  description = "ECR image URI for the Flask application"
+  type        = string
+}
+
+variable "container_port" {
+  description = "Port used by Gunicorn"
+  type        = number
+  default     = 5000
+}
