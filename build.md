@@ -110,12 +110,12 @@ HTTPS Listener
 
 ## Configure Route 53
 
-[A Record](images/31-A-record.png)
+![A Record](images/31-A-record.png)
 
 terminal varification 
 
-[Terminal Verification](images/32-terminal-verify.png)
+![Terminal Verification](images/32-terminal-verify.png)
 
 ## HTTPS Browser verification
 
-[HTTPS Browser verification](images/33-https-browser-verify.png)
+![HTTPS Browser verification](images/33-https-browser-verify.png)
