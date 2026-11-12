@@ -39,3 +39,11 @@ output "nat_gateway_public_ip" {
   description = "The public IP of the NAT Gateway"
   value       = module.vpc.nat_gateway_public_ip
 }
+output "alb_security_group_id" {
+  description = "The ID of the ALB security group"
+  value       = module.security_groups.alb_security_group_id
+}
+output "ecs_security_group_id" {
+  description = "The ID of the ECS security group"
+  value       = module.security_groups.ecs_security_group_id
+}
