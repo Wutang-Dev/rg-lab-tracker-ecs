@@ -33,3 +33,11 @@ variable "nat_gateway_domain" {
   type        = string
   default     = "vpc"
 }
+variable "alb_zone_id" {
+  description = "Canonical hosted zone ID of the ALB"
+  type        = string
+}
+variable "app_domain_name" {
+  description = "Fully qualified domain name for the ECS application"
+  type        = string
+}

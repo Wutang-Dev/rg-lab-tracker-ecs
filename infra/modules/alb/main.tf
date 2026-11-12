@@ -47,3 +47,15 @@ resource "aws_lb_listener" "http" {
     }
   }
 }
+resource "aws_lb_listener" "https" {
+  load_balancer_arn = aws_lb.main.arn
+  port              = var.https_port
+  protocol          = var.https_protocol
+  certificate_arn   = var.certificate_arn
+  ssl_policy        = var.ssl_policy
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.main.arn
+  }
+}

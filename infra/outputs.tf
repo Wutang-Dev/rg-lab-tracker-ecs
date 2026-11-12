@@ -47,3 +47,17 @@ output "ecs_security_group_id" {
   description = "The ID of the ECS security group"
   value       = module.security_groups.ecs_security_group_id
 }
+output "application_url" {
+  description = "HTTPS URL for the RG Lab Tracker application"
+  value       = "https://${module.route53.app_record_fqdn}"
+}
+
+output "alb_dns_name" {
+  description = "DNS name of the Application Load Balancer"
+  value       = module.alb.alb_dns_name
+}
+
+output "certificate_domain_name" {
+  description = "Domain name associated with the ACM certificate"
+  value       = module.acm.certificate_domain_name
+}
