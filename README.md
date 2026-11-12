@@ -20,7 +20,7 @@ I used Redis and Gunicorn alongside my Flask application to support the deployme
 
 **Redis** runs as a separate container within the same ECS task, providing an in-memory data store for the application's lab tracking data.
 
-**Gunicorn** acts as the production WSGI server, running my Flask application on port 5000 with two worker processes. The Application Load Balancer forwards incoming requests to Gunicorn, which handles them and passes them to Flask.
+**Gunicorn** I initially planned to use NGINX , Thats why the footer says nginx. Gunicorn acts as the production WSGI server, running my Flask application on port 5000 with two worker processes. The Application Load Balancer forwards incoming requests to Gunicorn, which handles them and passes them to Flask.
 
 Both services run together within my ECS task.
 
@@ -83,3 +83,72 @@ Both containers run within the same Fargate task, allowing Flask to communicate 
 I configured the ECS service with a desired count of one task, using three private subnets and an ECS security group that only permits application traffic from the ALB on port 5000.
 
 The Application Load Balancer forwards incoming HTTPS requests to Gunicorn, while the NAT Gateway provides outbound connectivity for the private subnets.
+
+## Local Setup
+
+### Prerequisites
+
+- Docker and Docker Compose
+- Git
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Wutang-Dev/rg-lab-tracker-ecs.git
+cd rg-lab-tracker-ecs
+```
+
+### 2. Build the application image
+
+```bash
+docker build -t rg-lab-tracker:v1.0.0 .
+```
+
+### 3. Start Redis
+
+```bash
+docker network create lab-tracker-network
+
+docker run -d \
+  --name lab-tracker-redis \
+  --network lab-tracker-network \
+  redis:7-alpine
+```
+
+### 4. Start the Flask application
+
+```bash
+docker run -d \
+  --name lab-tracker-app \
+  --network lab-tracker-network \
+  -p 5000:5000 \
+  -e REDIS_HOST=lab-tracker-redis \
+  rg-lab-tracker:v1.0.0
+```
+
+The application runs using Gunicorn on port 5000.
+
+### 5. Verify the application
+
+Open the application:
+
+http://localhost:5000
+
+Check the health endpoint:
+
+```bash
+curl http://localhost:5000/health
+```
+
+Expected response:
+
+```json
+{"status":"ok"}
+```
+
+### 6. Clean up
+
+```bash
+docker rm -f lab-tracker-app lab-tracker-redis
+docker network rm lab-tracker-network
+```
