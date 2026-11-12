@@ -41,3 +41,14 @@ I used Terraform to create two security groups to control traffic between the Ap
 The ALB security group allows inbound HTTP (80) and HTTPS (443) traffic from the internet. The ECS security group only accepts inbound traffic on port 5000 from the ALB security group, where Gunicorn serves my Flask application.
 
 Both security groups allow outbound traffic. This configuration keeps the application inaccessible directly from the internet while allowing traffic through the load balancer.
+<<<<<<< HEAD
+=======
+
+### Application Load Balancer (ALB)
+
+I created an Application Load Balancer using a separate Terraform module, deploying it across three public subnets. The ALB uses its own security group to allow inbound HTTP (80) and HTTPS (443) traffic.
+
+I also configured a target group using port 5000 to route traffic to the ECS containers, with health checks using the `/health` endpoint.
+
+Finally, I added an HTTP listener on port 80 that automatically redirects incoming requests to HTTPS on port 443 using a 301 redirect.
+>>>>>>> 2e2d13f (ALB section added to README)
