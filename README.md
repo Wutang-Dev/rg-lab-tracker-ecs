@@ -49,3 +49,11 @@ I created an Application Load Balancer using a separate Terraform module, deploy
 I also configured a target group using port 5000 to route traffic to the ECS containers, with health checks using the `/health` endpoint.
 
 Finally, I added an HTTP listener on port 80 that automatically redirects incoming requests to HTTPS on port 443 using a 301 redirect.
+
+### AWS Certificate Manager (ACM)
+
+I created a Terraform ACM module to provision an SSL/TLS certificate for `ecs-rg-lab-tracker.rginfralabs.co.uk`. The certificate uses DNS validation through Route 53, allowing AWS to verify domain ownership automatically. I configured `create_before_destroy` to support certificate replacement without removing the existing certificate first. The validated certificate is attached to the Application Load Balancer's HTTPS listener on port 443, enabling encrypted connections to the application.
+
+### Amazon Route 53
+
+I created a Terraform Route 53 module that references my existing `rginfralabs.co.uk` hosted zone rather than creating a new one. The module automatically creates the DNS records required for ACM certificate validation. I also configured an A alias record for `ecs-rg-lab-tracker.rginfralabs.co.uk`, pointing to the Application Load Balancer. This allows users to access the application through my custom domain, with HTTP requests redirected to HTTPS.
