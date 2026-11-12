@@ -29,4 +29,14 @@ variable "nat_gateway_domain" {
   type        = string
   default     = "vpc"
 }
+variable "domain_name" {
+  description = "The existing Route 53 hosted zone domain"
+  type        = string
+  default     = "rginfralabs.co.uk"
+}
 
+variable "app_domain_name" {
+  description = "The domain name for the ECS Lab Tracker application"
+  type        = string
+  default     = "ecs-rg-lab-tracker.rginfralabs.co.uk"
+}

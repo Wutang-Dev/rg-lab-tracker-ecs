@@ -75,3 +75,22 @@ variable "http_port" {
   type        = number
   default     = 80
 }
+variable "ssl_policy" {
+  description = "The SSL policy for the HTTPS listener"
+  type        = string
+  default     = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+}
+variable "certificate_arn" {
+  description = "The ARN of the SSL certificate for the HTTPS listener"
+  type        = string
+}
+variable "https_port" {
+  description = "The port on which the ALB listener listens for HTTPS traffic"
+  type        = number
+  default     = 443
+}
+variable "https_protocol" {
+  description = "The protocol used by the ALB HTTPS listener"
+  type        = string
+  default     = "HTTPS"
+}
