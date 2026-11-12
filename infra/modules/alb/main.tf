@@ -1,4 +1,3 @@
-# aws lb
 resource "aws_lb" "main" {
   name               = "${var.project}-alb"
   internal           = false
