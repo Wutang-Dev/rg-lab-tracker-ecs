@@ -57,3 +57,29 @@ I created a Terraform ACM module to provision an SSL/TLS certificate for `ecs-rg
 ### Amazon Route 53
 
 I created a Terraform Route 53 module that references my existing `rginfralabs.co.uk` hosted zone rather than creating a new one. The module automatically creates the DNS records required for ACM certificate validation. I also configured an A alias record for `ecs-rg-lab-tracker.rginfralabs.co.uk`, pointing to the Application Load Balancer. This allows users to access the application through my custom domain, with HTTP requests redirected to HTTPS.
+
+### IAM – ECS Task Execution Role
+
+I created a dedicated IAM module to manage the ECS task execution role, attaching the AWS-managed AmazonECSTaskExecutionRolePolicy.
+
+This allows ECS Fargate to authenticate with Amazon ECR, pull container images and send logs to CloudWatch when logging is configured.
+
+I separated IAM into its own Terraform module to keep permissions independent of the ECS infrastructure and make the configuration easier to maintain.
+
+### ECS Fargate – Application Deployment
+
+I used Terraform to deploy my Lab Tracker application on Amazon ECS Fargate, creating an ECS cluster, task definition and service.
+
+Fargate allows me to run containers without provisioning or managing EC2 instances, while Terraform manages the infrastructure.
+
+The task definition contains two containers:
+
+Flask/Gunicorn: Runs the Lab Tracker application on port 5000.
+
+Redis 7 Alpine: Runs on port 6379 and stores application counters.
+
+Both containers run within the same Fargate task, allowing Flask to communicate with Redis using 127.0.0.1.
+
+I configured the ECS service with a desired count of one task, using three private subnets and an ECS security group that only permits application traffic from the ALB on port 5000.
+
+The Application Load Balancer forwards incoming HTTPS requests to Gunicorn, while the NAT Gateway provides outbound connectivity for the private subnets.
