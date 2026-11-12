@@ -33,3 +33,11 @@ I used Terraform to provision a VPC (`10.0.0.0/16`) with three public and three 
 Public subnets route traffic through an Internet Gateway, while private subnets use a NAT Gateway for outbound internet access.
 
 I chose a single NAT Gateway to reduce costs and keep the infrastructure simple for this learning project. In production, I would consider deploying one per Availability Zone to improve resilience and reduce cross-zone dependencies.
+
+### Security Groups
+
+I used Terraform to create two security groups to control traffic between the Application Load Balancer (ALB) and ECS Fargate tasks.
+
+The ALB security group allows inbound HTTP (80) and HTTPS (443) traffic from the internet. The ECS security group only accepts inbound traffic on port 5000 from the ALB security group, where Gunicorn serves my Flask application.
+
+Both security groups allow outbound traffic. This configuration keeps the application inaccessible directly from the internet while allowing traffic through the load balancer.
