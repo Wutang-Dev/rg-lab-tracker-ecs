@@ -29,3 +29,4 @@ variable "nat_gateway_domain" {
   type        = string
   default     = "vpc"
 }
+
