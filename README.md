@@ -112,6 +112,12 @@ I also added a least-privilege IAM policy allowing the ECS task execution role t
 
 I verified the parameter using AWS CLI, confirmed the ECS service was running task definition revision `:4` with one running task, and successfully tested the HTTPS `/health` endpoint.
 
+## Application CI/CD
+
+The ECR push role in `bootstrap/github-ecr.tf` trusts the immutable GitHub OIDC subject for this repository's `main` branch. Changes to this trust policy must be applied to AWS before the workflow can use them.
+
+Using the existing bootstrap Terraform state and AWS credentials, run `terraform plan` and `terraform apply` from `bootstrap/`, reviewing the plan before applying it. The bootstrap configuration uses local state by default; do not apply with an empty state against existing resources. Once applied and this change is merged, run the Application CI/CD workflow on `main` and verify the ECR push succeeds.
+
 
 ## Local Setup
 
