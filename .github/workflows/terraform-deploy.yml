@@ -44,4 +44,7 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -input=false -auto-approve
+
+      - name: Post-Deploy Health Check
+        run: curl --fail --silent --show-error --retry 5 --retry-delay 5 https://ecs-rg-lab-tracker.rginfralabs.co.uk/health
    
