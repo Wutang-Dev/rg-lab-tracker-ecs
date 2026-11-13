@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "github_ecr_trust" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:Wutang-Dev/rg-lab-tracker-ecs:ref:refs/heads/main"]
+      values   = ["repo:Wutang-Dev@256145436/rg-lab-tracker-ecs@1453702448:ref:refs/heads/main"]
     }
   }
 }

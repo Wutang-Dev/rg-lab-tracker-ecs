@@ -66,6 +66,12 @@ This allows ECS Fargate to authenticate with Amazon ECR, pull container images a
 
 I separated IAM into its own Terraform module to keep permissions independent of the ECS infrastructure and make the configuration easier to maintain.
 
+### GitHub Actions – ECR Push Role
+
+The bootstrap Terraform configuration grants the application workflow access to ECR using GitHub OIDC. Its trust policy uses the repository's immutable owner and repository IDs and restricts access to the `main` branch.
+
+To update the live role, use AWS credentials for the correct account and the existing bootstrap Terraform state, then run `terraform plan` and `terraform apply` from `bootstrap/`. Review the plan before applying; do not create a new state for already-managed resources. After applying, rerun the failed workflow or manually dispatch it on `main`. Changes to `bootstrap/` alone do not trigger the application workflow.
+
 ### ECS Fargate – Application Deployment
 
 I used Terraform to deploy my Lab Tracker application on Amazon ECS Fargate, creating an ECS cluster, task definition and service.
