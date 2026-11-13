@@ -156,6 +156,20 @@ I successfully tested the workflow against my existing infrastructure, confirmin
 
 ![GitHub Actions Terraform Deploy](images/37-Deploy-Pipeline.png)
 
+### GitHub Actions — Terraform Destroy
+
+I created a separate GitHub Actions workflow to automate the teardown of my AWS infrastructure using Terraform.
+
+The workflow uses `workflow_dispatch` for manual execution and GitHub OIDC for AWS authentication without storing access keys.
+
+To prevent accidental deletion, the pipeline requires the user to enter `DESTROY` and restricts execution to the `main` branch.
+
+I tested the confirmation safeguard and successfully executed the Terraform Destroy step through GitHub Actions.
+
+**Result:** Terraform Destroy pipeline completed successfully in 28 seconds.
+
+![GitHub Actions Terraform Destroy](images/38-Deestroy-Pipeline.png)
+
 
 ## Local Setup
 
