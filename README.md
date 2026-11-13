@@ -142,6 +142,20 @@ All checks passed successfully, confirming the Terraform configuration is valid 
 
 ![Terraform Check Pipeline](images/36-Terraform-validate-pipeline.png)
 
+### GitHub Actions — Terraform Deploy
+
+I created a GitHub Actions workflow to automate Terraform infrastructure deployment to AWS ECS.
+
+The workflow is manually triggered using `workflow_dispatch` and authenticates to AWS using GitHub OIDC and an IAM role, removing the need to store AWS access keys.
+
+The pipeline runs `terraform init`, `terraform validate`, `terraform plan` and `terraform apply`, with deployment restricted to the `main` branch.
+
+I successfully tested the workflow against my existing infrastructure, confirming that Terraform detected no changes and completed Apply without modifying any resources.
+
+**Result:** Terraform Deploy completed successfully in 45 seconds.
+
+![GitHub Actions Terraform Deploy](images/37-Deploy-Pipeline.png)
+
 
 ## Local Setup
 
