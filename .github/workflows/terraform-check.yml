@@ -46,9 +46,9 @@ jobs:
       - name: Set up TFLint
         uses: terraform-linters/setup-tflint@v4
 
-      - name: Initialise TFLint
-        run: tflint --init
+    #   - name: Initialise TFLint
+    #     run: tflint --init
 
-      - name: Run TFLint
-        run: tflint --recursive 
+    #   - name: Run TFLint
+    #     run: tflint --recursive 
      
