@@ -102,6 +102,17 @@ Health Browser Validation
 
 ![Health Browser Validation](images/34-browser-health.png)
 
+## AWS Systems Manager Parameter Store (Bonus)
+
+I created a Terraform SSM module to manage the application's environment configuration.
+
+I stored `production` as a String parameter at `/rg-lab-tracker-ecs/app_env` and configured the ECS task definition to inject it into the Flask container as `APP_ENV`.
+
+I also added a least-privilege IAM policy allowing the ECS task execution role to retrieve the specific parameter.
+
+I verified the parameter using AWS CLI, confirmed the ECS service was running task definition revision `:4` with one running task, and successfully tested the HTTPS `/health` endpoint.
+
+
 ## Local Setup
 
 ### Prerequisites

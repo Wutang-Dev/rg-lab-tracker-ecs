@@ -8,3 +8,7 @@ variable "managed_by" {
   type        = string
   default     = "Terraform"
 }
+variable "app_env_parameter_arn" {
+  description = "ARN of the SSM application environment parameter"
+  type        = string
+}

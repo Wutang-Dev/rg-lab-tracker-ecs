@@ -37,3 +37,7 @@ variable "target_group_arn" {
   description = "ARN of the target group for the ECS service"
   type        = string
 }
+variable "app_env_parameter_arn" {
+  description = "ARN of the SSM application environment parameter"
+  type        = string
+}

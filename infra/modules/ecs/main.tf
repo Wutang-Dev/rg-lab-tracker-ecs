@@ -39,6 +39,12 @@ resource "aws_ecs_task_definition" "main" {
           value = "6379"
         }
       ]
+      secrets = [
+        {
+          name      = "APP_ENV"
+          valueFrom = var.app_env_parameter_arn
+        }
+      ]
     },
     {
       name      = "${var.project}-redis"

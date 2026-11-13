@@ -50,9 +50,18 @@ module "ecs" {
   execution_role_arn    = module.iam.ecs_task_execution_role_arn
   app_image             = var.app_image
   container_port        = var.container_port
+  app_env_parameter_arn = module.ssm.app_env_arn
+  depends_on            = [module.iam]
 }
 module "iam" {
-  source     = "./modules/iam"
-  project    = var.project
-  managed_by = var.managed_by
+  source                = "./modules/iam"
+  project               = var.project
+  managed_by            = var.managed_by
+  app_env_parameter_arn = module.ssm.app_env_arn
+}
+module "ssm" {
+  source          = "./modules/ssm"
+  project         = var.project
+  app_environment = "production"
+  managed_by      = var.managed_by
 }
