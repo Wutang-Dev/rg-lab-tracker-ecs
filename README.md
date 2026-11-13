@@ -112,6 +112,22 @@ I also added a least-privilege IAM policy allowing the ECS task execution role t
 
 I verified the parameter using AWS CLI, confirmed the ECS service was running task definition revision `:4` with one running task, and successfully tested the HTTPS `/health` endpoint.
 
+## CI/CD Pipeline
+
+### Application – Build and Push Docker Image
+
+I created a GitHub Actions workflow to automate building and publishing the RG Lab Tracker Docker image.
+
+The pipeline runs when application code or the Dockerfile is updated on the main branch.
+
+It checks out the repository, authenticates with AWS using IAM and GitHub OIDC, and logs into Amazon ECR.
+
+Docker Buildx then builds the application image and pushes it to ECR using the Git commit SHA as a unique image tag.
+
+**Result:** The pipeline completed successfully, confirming automated image publishing to Amazon ECR.
+
+![Build and Push Docker Image Pipeline](images/35-build-and-push-Docker-Image-pipeline.png)
+
 
 ## Local Setup
 
