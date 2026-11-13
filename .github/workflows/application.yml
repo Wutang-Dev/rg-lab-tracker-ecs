@@ -52,6 +52,7 @@ jobs:
           severity: HIGH,CRITICAL
           exit-code: 1
           ignore-unfixed: true
+          version: 'v0.64.1'
 
       - name: Configure AWS credentials
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
@@ -64,7 +65,7 @@ jobs:
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
-        
+
       - name: Tag and push Docker image to ECR
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         env:
