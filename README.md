@@ -84,6 +84,24 @@ I configured the ECS service with a desired count of one task, using three priva
 
 The Application Load Balancer forwards incoming HTTPS requests to Gunicorn, while the NAT Gateway provides outbound connectivity for the private subnets.
 
+### HTTPS Browser and Terminal Verification  
+
+**Application:** https://ecs-rg-lab-tracker.rginfralabs.co.uk
+
+**Health Check:** https://ecs-rg-lab-tracker.rginfralabs.co.uk/health
+
+Terminal verification 
+
+![Terminal Verification](images/32-terminal-verify.png)
+
+HTTPS Browser Verification 
+
+![HTTPS Browser Verification](images/33-https-browser-verify.png)
+
+Health Browser Validation 
+
+![Health Browser Validation](images/34-browser-health.png)
+
 ## Local Setup
 
 ### Prerequisites
