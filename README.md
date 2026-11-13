@@ -128,6 +128,20 @@ Docker Buildx then builds the application image and pushes it to ECR using the G
 
 ![Build and Push Docker Image Pipeline](images/35-build-and-push-Docker-Image-pipeline.png)
 
+### Terraform Check Pipeline
+
+I created a GitHub Actions workflow to automatically validate my Terraform infrastructure code whenever changes are pushed to the main branch or submitted through a pull request.
+
+The pipeline performs three checks:
+
+- **Terraform Format** – Checks that Terraform files follow consistent formatting.
+- **Terraform Init** – Initialises Terraform without connecting to the remote backend.
+- **Terraform Validate** – Checks the configuration for syntax and structural errors.
+
+All checks passed successfully, confirming the Terraform configuration is valid before infrastructure deployment.
+
+![Terraform Check Pipeline](images/36-Terraform-validate-pipeline.png)
+
 
 ## Local Setup
 
