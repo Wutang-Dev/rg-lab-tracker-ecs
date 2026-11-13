@@ -14,6 +14,50 @@ I then containerised the application using a multi-stage Dockerfile, running Gun
 
 I  first built the AWS infrastructure manually using the AWS Console before recreating it with Terraform and automating deployments using GitHub Actions.
 
+## Project Structure
+
+The project separates the Flask application, Docker configuration, Terraform infrastructure and GitHub Actions workflows. Terraform modules are used to organise AWS resources, while the bootstrap directory manages the remote state backend and GitHub Actions IAM roles.
+
+```text
+rg-lab-tracker-ecs/
+├── .github/
+│   └── workflows/
+│       ├── application.yml          # Docker build and ECR push
+│       ├── terraform-check.yml      # Terraform formatting and validation
+│       ├── terraform-deploy.yml     # Terraform infrastructure deployment
+│       └── terraform-destroy.yml    # Terraform infrastructure teardown
+│
+├── app/
+│   ├── app.py                       # Flask application
+│   ├── requirements.txt             # Python dependencies
+│   ├── static/                      # CSS and JavaScript
+│   └── templates/                   # HTML templates
+│
+├── bootstrap/                       # S3 backend and GitHub OIDC roles
+│
+├── infra/
+│   ├── backend.tf                   # Remote Terraform state
+│   ├── main.tf                      # Root module configuration
+│   ├── outputs.tf
+│   ├── providers.tf
+│   ├── varaibles.tf
+│   └── modules/
+│       ├── acm/                     # HTTPS certificate
+│       ├── alb/                     # Application Load Balancer
+│       ├── ecs/                     # ECS Fargate
+│       ├── iam/                     # ECS IAM permissions
+│       ├── route53/                 # DNS records
+│       ├── security-groups/         # Network security
+│       ├── ssm/                     # Parameter Store
+│       └── vpc/                     # VPC, subnets and routing
+│
+├── images/                          # Project screenshots                         
+├── Dockerfile                       # Application container image
+├── build.md                         # Build documentation
+├── .gitignore
+└── README.md                        # Project documentation
+```
+
 ### Redis and Gunicorn
 
 I used Redis and Gunicorn alongside my Flask application to support the deployment on AWS ECS Fargate.
@@ -112,6 +156,16 @@ I also added a least-privilege IAM policy allowing the ECS task execution role t
 
 I verified the parameter using AWS CLI, confirmed the ECS service was running task definition revision `:4` with one running task, and successfully tested the HTTPS `/health` endpoint.
 
+### Terraform Remote State
+
+I configured an Amazon S3 backend to store Terraform state remotely rather than keeping it on my local machine.
+
+The S3 bucket was provisioned separately using Terraform in the `bootstrap` directory, alongside the GitHub Actions IAM roles.
+
+I enabled S3 versioning and native Terraform state locking using a `.tflock` file to prevent concurrent infrastructure changes.
+
+This allows GitHub Actions and my local Terraform configuration to use the same remote state.
+
 ## CI/CD Pipeline
 
 ### Application – Build and Push Docker Image
@@ -150,7 +204,7 @@ The workflow is manually triggered using `workflow_dispatch` and authenticates t
 
 The pipeline runs `terraform init`, `terraform validate`, `terraform plan` and `terraform apply`, with deployment restricted to the `main` branch.
 
-I successfully tested the workflow against my existing infrastructure, confirming that Terraform detected no changes and completed Apply without modifying any resources.
+After Terraform Apply, the pipeline runs a health check against the application's HTTPS `/health` endpoint. The workflow fails if the endpoint cannot be reached successfully.
 
 **Result:** Terraform Deploy completed successfully in 45 seconds.
 
@@ -166,7 +220,6 @@ To prevent accidental deletion, the pipeline requires the user to enter `DESTROY
 
 I tested the confirmation safeguard and successfully executed the Terraform Destroy step through GitHub Actions.
 
-**Result:** Terraform Destroy pipeline completed successfully in 28 seconds.
 
 ![GitHub Actions Terraform Destroy](images/38-Deestroy-Pipeline.png)
 
