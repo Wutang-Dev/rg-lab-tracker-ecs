@@ -56,7 +56,25 @@ rg-lab-tracker-ecs/
 ├── build.md                         # Build documentation
 ├── .gitignore
 └── README.md                        # Project documentation
+
 ```
+## Architecture
+
+### AWS Infrastructure Architecture
+
+The diagram below shows the AWS infrastructure deployed
+using Terraform, including the VPC, three Availability
+Zones, public and private subnets, ALB and ECS Fargate.
+
+![AWS Infrastructure Architecture](images/rg-lab-tracker-architecture-landscape.png)
+
+### Application and CI/CD Architecture
+
+The diagram below illustrates how the application
+communicates with AWS services and how GitHub Actions
+deploys the infrastructure and container image.
+
+![Application and CI/CD Architecture](images/rg-lab-tracker-architecture-portrait.png)
 
 ### Redis and Gunicorn
 
