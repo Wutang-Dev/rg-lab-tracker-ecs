@@ -1,0 +1,35 @@
+# Git
+.git
+.github
+.gitignore
+
+# Terraform
+infra/
+bootstrap/
+*.tfstate
+*.tfstate.*
+.terraform/
+*.tfvars
+*.tfvars.json
+
+# Documentation
+README.md
+build.md
+images/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Local configuration
+.env
+.env.*
+!.env.example
+
+# Local development
+.vscode/
+.idea/
+.DS_Store
